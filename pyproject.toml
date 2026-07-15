@@ -26,4 +26,4 @@ packages = ["src"]
 package = true
 
 [project.scripts]
-build-trie = "src.learn.trie_builder:main"
+build-trie = "src.model.trie_builder:main"
