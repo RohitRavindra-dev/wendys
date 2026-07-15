@@ -26,7 +26,7 @@ def solve_wend(grid: list[list[str]], config: list[int]) -> list[list[int]]:
 
     possibilities: dict[int, list[list[tuple[int, int]]]] = {i: [] for i in config}
     m, n = len(grid), len(grid[0])
-    curPath = []
+    curPath: list[tuple[int, int]] = []
 
     def dfs(curNode: TrieNode, i: int, j: int):
         if curNode.is_end and len(curPath) in possibilities:
@@ -40,7 +40,6 @@ def solve_wend(grid: list[list[str]], config: list[int]) -> list[list[int]]:
                 and grid[x][y] != "#"
                 and grid[x][y] in curNode.children
             ):
-
                 temp, grid[x][y] = grid[x][y], "#"
                 curPath.append((x, y))
                 dfs(curNode.children[temp], x, y)
