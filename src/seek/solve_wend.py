@@ -1,27 +1,12 @@
+from src.constants import TRAVERSE_DIRECTIONS
 from src.filers.pickle_file_manager import load_trie
 from src.model.trie import TrieNode
-
-dirs = ((0, 1), (1, 0), (0, -1), (-1, 0))
-
-
-def printPossibilities(
-    grid: list[list[str]], possibilities: dict[int, list[list[tuple[int, int]]]]
-):
-
-    def getWord(path: list[tuple[int, int]]):
-        word = ""
-        for x, y in path:
-            word += grid[x][y]
-        return word
-
-    for k, v in possibilities.items():
-        for pos in v:
-            print(f"{k}: {getWord(pos)}")
+from src.seek.possibilities import get_possible_solutions, printPossibleWords
 
 
-def solve_wend(grid: list[list[str]], config: list[int]) -> list[list[int]]:
+def solve_wend(grid: list[list[str]], config: list[int]) -> None:
     print("Started to solve wend")
-    config.sort()
+
     trie = load_trie()
 
     possibilities: dict[int, list[list[tuple[int, int]]]] = {i: [] for i in config}
@@ -32,7 +17,7 @@ def solve_wend(grid: list[list[str]], config: list[int]) -> list[list[int]]:
         if curNode.is_end and len(curPath) in possibilities:
             possibilities[len(curPath)].append(curPath.copy())
 
-        for dx, dy in dirs:
+        for dx, dy in TRAVERSE_DIRECTIONS:
             x, y = i + dx, j + dy
             if (
                 -1 < x < m
@@ -55,8 +40,10 @@ def solve_wend(grid: list[list[str]], config: list[int]) -> list[list[int]]:
                 grid[i][j] = temp
                 curPath.pop()
 
-    printPossibilities(grid, possibilities)
-    return []
+    printPossibleWords(grid, possibilities)
+    print(
+        f"Solns for config: {config} => {get_possible_solutions(m, n, possibilities, config)}"
+    )
 
 
 # traverse dfs
@@ -77,7 +64,7 @@ def main():
 
     config = [4, 5, 6, 7]
 
-    print(solve_wend(grid, config))
+    solve_wend(grid, config)
 
 
 if __name__ == "__main__":
