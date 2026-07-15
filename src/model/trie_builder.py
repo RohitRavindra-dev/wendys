@@ -2,13 +2,13 @@
 # build a trie of this
 # pickle dump that shi
 
-import pickle
 from wordfreq import zipf_frequency
 
-from src.constants import TRIE_PICKLE_OUTPUT_PATH, WORDLIST_PATH
+from src.constants import WORDLIST_PATH
+from src.filers.pickle_file_manager import save_trie
 from src.model.trie import Trie
 
-from src.learn.file_fetcher import download_wordlist
+from src.filers.file_fetcher import download_wordlist
 
 
 def build_trie() -> Trie:
@@ -18,14 +18,8 @@ def build_trie() -> Trie:
         for line in f:
             word = line.strip().lower()
             if word.isalpha() and zipf_frequency(word, "en") >= 2.5:
-                trie.insert(word)
+                trie.insert(word.upper())
     return trie
-
-
-def save_trie(trie: Trie):
-    with TRIE_PICKLE_OUTPUT_PATH.open("wb") as f:
-        pickle.dump(trie, f, protocol=pickle.HIGHEST_PROTOCOL)
-    print(f"Saved trie to {TRIE_PICKLE_OUTPUT_PATH}")
 
 
 def main() -> None:

@@ -35,3 +35,6 @@ class Trie:
             if node is None:
                 return None
         return node
+
+    def get_papa(self, start: str) -> TrieNode:
+        return self.root.children[start]
