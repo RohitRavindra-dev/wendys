@@ -2,7 +2,7 @@ from src.constants import TRAVERSE_DIRECTIONS
 from src.filers.pickle_file_manager import load_trie
 from src.model.wendys_problem import WendysProblem
 from src.model.trie import TrieNode
-from src.seek.possibilities import get_solutions_from_possibilities, printPossibleWords
+from src.seek.possibilities import get_solutions_from_possibilities
 
 # traverse dfs
 # keep track of path
@@ -46,12 +46,7 @@ def solve_wend(problem: WendysProblem) -> None:
                 dfs(trie.get_papa(temp), i, j)  # type: ignore
                 problem.grid[i][j] = temp
                 curPath.pop()
-
-    printPossibleWords(problem, possibilities)
     get_solutions_from_possibilities(problem, possibilities)
-    print(f"Solns for config: {problem.config} =>")
-    for soln in problem.solutions:
-        print(soln.solution)
 
 
 # problem creation from webpage (llm?, webscrape?): TODO
@@ -68,7 +63,7 @@ def main():
 
     wend_problem = WendysProblem(grid, config)
     solve_wend(wend_problem)
-
+    wend_problem.pprint_wend_solutions()
 
 if __name__ == "__main__":
     main()

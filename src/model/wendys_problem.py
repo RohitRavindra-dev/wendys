@@ -11,6 +11,13 @@ class WendysSolution:
         for i, word_len in enumerate(config):
             self.solution[word_len] = possiblity_map[word_len][possible_solution[i]]
 
+    def pprint_solution(self):
+        print(f"{'-'*10}SOLUTION{'-'*10}")
+        for wl, sol in self.solution.items():
+            print(f"Word len:{wl} is along path: {sol}", end=" ")
+            yield sol
+        print("-" * 30)
+
 
 class WendysProblem:
     __slots__ = ("grid", "config", "grid_width", "grid_height", "solutions")
@@ -28,3 +35,8 @@ class WendysProblem:
         for x, y in path:
             word += self.grid[x][y]
         return word
+
+    def pprint_wend_solutions(self):
+        for soln in self.solutions:
+            for path in soln.pprint_solution():
+                print(f"-> {self.get_word_along_path(path)}")

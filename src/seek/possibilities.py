@@ -1,14 +1,6 @@
 from src.model.wendys_problem import WendysProblem, WendysSolution
 
 
-def printPossibleWords(
-    problem: WendysProblem, possibilities: dict[int, list[list[tuple[int, int]]]]
-):
-    for k, v in possibilities.items():
-        for path in v:
-            print(f"{k}: {problem.get_word_along_path(path)} @{path}")
-
-
 def get_solutions_from_possibilities(
     wendys_problem: WendysProblem,
     possibilities: dict[int, list[list[tuple[int, int]]]],
