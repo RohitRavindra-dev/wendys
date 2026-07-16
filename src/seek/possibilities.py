@@ -1,26 +1,21 @@
-def getWord(grid, path: list[tuple[int, int]]):
-    word = ""
-    for x, y in path:
-        word += grid[x][y]
-    return word
+from src.model.wendys_problem import WendysProblem, WendysSolution
 
 
 def printPossibleWords(
-    grid: list[list[str]], possibilities: dict[int, list[list[tuple[int, int]]]]
+    problem: WendysProblem, possibilities: dict[int, list[list[tuple[int, int]]]]
 ):
-
     for k, v in possibilities.items():
-        for pos in v:
-            print(f"{k}: {getWord(grid, pos)} @{pos}")
+        for path in v:
+            print(f"{k}: {problem.get_word_along_path(path)} @{path}")
 
 
-def get_possible_solutions(
-    gridWidth: int,
-    gridHeight: int,
+def get_solutions_from_possibilities(
+    wendys_problem: WendysProblem,
     possibilities: dict[int, list[list[tuple[int, int]]]],
-    config: list[int],
-)->list[list[int]]:
-    visited = [[False] * gridWidth for _ in range(gridHeight)]
+):
+    visited = [
+        [False] * wendys_problem.grid_width for _ in range(wendys_problem.grid_height)
+    ]
 
     def markVisited(path: list[tuple[int, int]]) -> bool:
         for i, pos in enumerate(path):
@@ -40,26 +35,25 @@ def get_possible_solutions(
                 return
             visited[x][y] = False
 
-    solns:list[list[int]] = []
-    cur:list[int] = []
+    cur: list[int] = []
 
     def dfs(config_pos: int):
-        if config_pos == len(config):
-            solns.append(cur.copy())
+        if config_pos == len(wendys_problem.config):
+            wendys_problem.solutions.append(
+                WendysSolution(wendys_problem.config, possibilities, cur)
+            )
             return
 
-        for i, pos in enumerate(possibilities[config[config_pos]]):
+        for i, pos in enumerate(possibilities[wendys_problem.config[config_pos]]):
             if markVisited(pos):
                 cur.append(i)
                 dfs(config_pos + 1)
                 cur.pop()
                 unmarkPath(pos)
 
-    for i in range(len(possibilities[config[0]])):
-        markVisited(possibilities[config[0]][i])
+    for i in range(len(possibilities[wendys_problem.config[0]])):
+        markVisited(possibilities[wendys_problem.config[0]][i])
         cur.append(i)
         dfs(1)
         cur.pop()
-        unmarkPath(possibilities[config[0]][i])
-
-    return solns
+        unmarkPath(possibilities[wendys_problem.config[0]][i])
