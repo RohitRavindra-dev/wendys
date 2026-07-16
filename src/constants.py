@@ -11,3 +11,5 @@ WORDLIST_URL = (
 )
 WORDLIST_PATH = OUTPUT_DIR / "words_alpha.txt"
 TRIE_PICKLE_OUTPUT_PATH = OUTPUT_DIR / "trie.pkl"
+
+TRAVERSE_DIRECTIONS = ((0, 1), (1, 0), (0, -1), (-1, 0))
