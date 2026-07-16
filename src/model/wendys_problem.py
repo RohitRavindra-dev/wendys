@@ -12,7 +12,7 @@ class WendysSolution:
             self.solution[word_len] = possiblity_map[word_len][possible_solution[i]]
 
     def pprint_solution(self):
-        print(f"{'-'*10}SOLUTION{'-'*10}")
+        print(f"{'-' * 10}SOLUTION{'-' * 10}")
         for wl, sol in self.solution.items():
             print(f"Word len:{wl} is along path: {sol}", end=" ")
             yield sol
