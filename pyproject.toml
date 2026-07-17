@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 
 dependencies = [
+    "playwright>=1.61.0",
     "wordfreq>=3.1.1",
 ]
 
