@@ -12,6 +12,7 @@ from src.constants import (
 )
 from src.model.wendys_problem import WendysProblem
 
+
 def get_board_dimensions(page: Page, board: Locator) -> tuple[int, int]:
 
     cols = page.evaluate(
@@ -36,9 +37,9 @@ def _get_bored(page: Page) -> list[list[str]]:
     cells = board.locator("[data-cell-idx]")
     rows, cols = get_board_dimensions(page, board)
 
-    assert (
-        cells.count() == rows * cols
-    ), f"Expected {rows * cols} cells, found {cells.count()}"
+    assert cells.count() == rows * cols, (
+        f"Expected {rows * cols} cells, found {cells.count()}"
+    )
 
     grid: list[list[str]] = []
 

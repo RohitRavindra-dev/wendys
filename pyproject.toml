@@ -28,3 +28,4 @@ package = true
 
 [project.scripts]
 build-trie = "src.model.trie_builder:main"
+crack-wendy = "main:main"
