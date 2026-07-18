@@ -17,7 +17,7 @@ def build_trie() -> Trie:
     with WORDLIST_PATH.open() as f:
         for line in f:
             word = line.strip().lower()
-            if word.isalpha() and zipf_frequency(word, "en") >= 3:
+            if word.isalpha() and zipf_frequency(word, "en") >= 2.5:
                 trie.insert(word.upper())
     return trie
 
