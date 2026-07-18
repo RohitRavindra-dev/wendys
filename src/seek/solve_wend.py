@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from src.filers.pickle_file_manager import load_trie
 from src.model.wendys_problem import WendysProblem
 from src.seek.possibilities import (
@@ -16,6 +18,8 @@ def solve_wendys_problem(problem: WendysProblem) -> None:
 
     trie = load_trie()
     possibilities = get_possibilities_from_problem(problem, trie)
+    print("Possible words:")
+    pprint(possibilities)
     get_solutions_from_possibilities(problem, possibilities)
 
 
