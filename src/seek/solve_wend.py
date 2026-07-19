@@ -14,7 +14,7 @@ from src.seek.possibilities import (
 # continue until no more
 # see possibilities and pick one answer
 def solve_wendys_problem(problem: WendysProblem) -> None:
-    print("Started to solve wendys problem")
+    print("[Started] to solve wendys problem")
 
     trie = load_trie()
     possibilities = get_possibilities_from_problem(problem, trie)
