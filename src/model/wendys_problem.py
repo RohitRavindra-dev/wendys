@@ -7,14 +7,17 @@ class WendysSolution:
         possiblity_map: dict[int, list[list[tuple[int, int]]]],
         possible_solution: list[int],
     ) -> None:
-        self.solution: dict[int, list[tuple[int, int]]] = {}
+        self.solution: dict[str, list[tuple[int, int]]] = {}
         for i, word_len in enumerate(config):
-            self.solution[word_len] = possiblity_map[word_len][possible_solution[i]]
+            self.solution[f"{word_len}_{i}"] = possiblity_map[word_len][
+                possible_solution[i]
+            ]
 
     def pprint_solution(self):
         print(f"{'-' * 10}SOLUTION{'-' * 10}")
-        for wl, sol in self.solution.items():
-            print(f"Word len:{wl} is along path: {sol}", end=" ")
+        for wl_pos, sol in self.solution.items():
+            wl, pos = wl_pos.split("_")
+            print(f"[{pos}] Word len:{wl} is along path: {sol}", end=" ")
             yield sol
         print("-" * 30)
 
